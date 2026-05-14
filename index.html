@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Signature Web</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+    .luxury-font { font-family: 'Playfair Display', serif; }
+    .gold-text {
+      background: linear-gradient(90deg, #D4AF37, #F5E8B3, #D4AF37);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .btn-gold {
+      background: linear-gradient(90deg, #D4AF37, #F5E8B3);
+      transition: all 0.4s ease;
+    }
+    .btn-gold:hover { transform: scale(1.05); }
+  </style>
+</head>
+<body class="bg-[#0A0A0A] text-white">
+
+  <nav class="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-lg border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
+      <div class="luxury-font text-3xl gold-text">SIGNATURE WEB</div>
+      <a href="#contact" class="px-8 py-4 border-2 border-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition">Заказать сайт</a>
+    </div>
+  </nav>
+
+  <section class="h-screen flex items-center justify-center text-center px-6">
+    <div>
+      <h1 class="luxury-font text-6xl md:text-7xl gold-text mb-6">ВАШ САЙТ.<br>ВАША ЦИФРОВАЯ ПОДПИСЬ.</h1>
+      <p class="text-2xl text-[#E8C670] mb-10">Индивидуальные сайты • Telegram-боты с воронками</p>
+      <a href="#contact" class="inline-block px-12 py-6 btn-gold text-black text-xl font-medium">Начать проект</a>
+    </div>
+  </section>
+
+  <section id="services" class="py-28 bg-black">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="luxury-font text-5xl gold-text text-center mb-16">Услуги</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-10 border border-white/10 hover:border-[#D4AF37] rounded-xl">
+          <h3 class="text-2xl mb-4">🎨 Индивидуальный сайт</h3>
+          <p class="text-gray-400">Личный бренд, портфолио</p>
+        </div>
+        <div class="p-10 border border-white/10 hover:border-[#D4AF37] rounded-xl">
+          <h3 class="text-2xl mb-4">💼 Сайт под бизнес</h3>
+          <p class="text-gray-400">Корпоративные сайты, лендинги</p>
+        </div>
+        <div class="p-10 border border-white/10 hover:border-[#D4AF37] rounded-xl">
+          <h3 class="text-2xl mb-4">🤖 Telegram-боты</h3>
+          <p class="text-gray-400">Воронки продаж, автоответчики</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="py-28 bg-black">
+    <div class="max-w-2xl mx-auto px-6 text-center">
+      <h2 class="luxury-font text-5xl gold-text mb-12">Готовы начать?</h2>
+      
+      <form id="contact-form" class="space-y-8">
+        <input type="text" id="name" placeholder="Ваше имя" required class="w-full bg-transparent border-b border-white/30 pb-5 focus:border-[#D4AF37] outline-none text-lg">
+        <input type="text" id="contact" placeholder="Telegram / Email / Телефон" required class="w-full bg-transparent border-b border-white/30 pb-5 focus:border-[#D4AF37] outline-none text-lg">
+        <textarea id="message" placeholder="Опишите проект..." rows="6" required class="w-full bg-transparent border-b border-white/30 focus:border-[#D4AF37] outline-none text-lg"></textarea>
+        <button type="submit" class="w-full py-8 btn-gold text-black text-xl font-medium">Отправить заявку</button>
+      </form>
+
+      <p class="mt-10 text-gray-400">Или напишите: <a href="https://t.me/Doujons" class="text-[#D4AF37]">@Doujons</a></p>
+    </div>
+  </section>
+
+  <script>
+    // ===== ВАШИ КЛЮЧИ (ВСТАВЬТЕ ПРАВИЛЬНЫЕ) =====
+    const BOT_TOKEN = "8830360320:AAE2vHpw-Fm0PgJ0crMdGfGO94qrkuoQhmQ";
+    const CHAT_ID = "8381713522";
+    // ===========================================
+    
+    // ПРОВЕРКА: правильный ли токен? Напишите боту любое сообщение, затем откройте:
+    // https://api.telegram.org/bot8830360320:AAE2vHpw-Fm0PgJ0crMdGfGO94qrkuoQhmQ/getUpdates
+    // Там должен быть ваш CHAT_ID = 8381713522
+
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('button');
+      const original = btn.textContent;
+      btn.textContent = '⏳ Отправка...';
+      btn.disabled = true;
+
+      const name = document.getElementById('name').value;
+      const contact = document.getElementById('contact').value;
+      const message = document.getElementById('message').value;
+
+      const text = `🚀 НОВАЯ ЗАЯВКА\n\n👤 Имя: ${name}\n📞 Контакт: ${contact}\n💼 Проект:\n${message}`;
+
+      try {
+        const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: CHAT_ID, text: text })
+        });
+        const result = await response.json();
+        if (result.ok) {
+          alert('✅ Заявка отправлена! Мы свяжемся с вами.');
+          this.reset();
+        } else {
+          alert('❌ Ошибка: неверный токен или CHAT_ID. Проверьте ключи.');
+        }
+      } catch (err) {
+        alert('❌ Ошибка отправки. Напишите @Doujons в Telegram.');
+      } finally {
+        btn.textContent = original;
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
