@@ -26,52 +26,107 @@
     .service-card:hover { transform: translateY(-10px); border-color: #D4AF37; }
     .section-title { position: relative; display: inline-block; }
     .section-title::after { content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: linear-gradient(90deg, transparent, #D4AF37, transparent); }
+
+    /* ========== APPLE ЭФФЕКТЫ (добавлено) ========== */
+    
+    /* 1. Стильный скроллбар */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0A0A0A; }
+    ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #E8C670; }
+    
+    /* 2. Плавное появление элементов при скролле */
+    .fade-on-scroll {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .fade-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* 3. Дополнительное свечение для заголовков */
+    .glow-text {
+      text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+    }
+    
+    /* 4. Плавный ховер для карточек цен */
+    .price-card-hover {
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .price-card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
+    }
+    
+    /* 5. Apple-анимация загрузки */
+    @keyframes gentlePulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .pulse-animation {
+      animation: gentlePulse 3s ease-in-out infinite;
+    }
+    
+    /* 6. Эффект стекла (glassmorphism) для навигации */
+    .glass-nav {
+      background: rgba(10, 10, 10, 0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    }
+    
+    /* 7. Адаптив для телефонов */
+    @media (max-width: 768px) {
+      .fade-on-scroll { transform: translateY(20px); }
+      .service-card:hover { transform: translateY(-5px); }
+    }
   </style>
 </head>
 <body class="bg-[#0A0A0A] text-white overflow-x-hidden">
 
-  <nav class="fixed top-0 w-full z-50 border-b border-white/10 bg-black/90 backdrop-blur-lg">
+  <nav class="fixed top-0 w-full z-50 transition-all duration-500 border-b border-white/10 glass-nav">
     <div class="max-w-7xl mx-auto px-6 md:px-8 py-5 flex justify-between items-center">
-      <div class="luxury-font text-3xl gold-text tracking-widest">SIGNATURE WEB</div>
+      <div class="luxury-font text-3xl gold-text tracking-widest pulse-animation">SIGNATURE WEB</div>
       <div class="hidden md:flex gap-8 text-sm uppercase tracking-wider">
-        <a href="#services" class="hover:text-[#D4AF37] transition">Услуги</a>
-        <a href="#prices" class="hover:text-[#D4AF37] transition">Цены</a>
-        <a href="#contact" class="hover:text-[#D4AF37] transition">Контакты</a>
+        <a href="#services" class="hover:text-[#D4AF37] transition duration-300">Услуги</a>
+        <a href="#prices" class="hover:text-[#D4AF37] transition duration-300">Цены</a>
+        <a href="#contact" class="hover:text-[#D4AF37] transition duration-300">Контакты</a>
       </div>
-      <a href="#contact" class="px-6 py-3 border-2 border-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition text-sm uppercase tracking-wider">Заказать сайт</a>
+      <a href="#contact" class="px-6 py-3 border-2 border-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all duration-300 text-sm uppercase tracking-wider hover:scale-105">Заказать сайт</a>
     </div>
   </nav>
 
   <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
     <div id="hero-3d"></div>
     <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
-      <h1 class="luxury-font text-5xl md:text-7xl lg:text-8xl gold-text leading-none mb-6">ВАШ САЙТ<br>ВАША ЦИФРОВАЯ ПОДПИСЬ</h1>
-      <p class="text-xl md:text-2xl text-[#E8C670] mb-12">Премиальные индивидуальные сайты • Сайты под бизнес • Telegram-боты с воронками продаж</p>
-      <a href="#contact" class="inline-block px-12 py-5 btn-gold text-black text-lg font-semibold uppercase tracking-wider">Начать проект</a>
+      <h1 class="luxury-font text-5xl md:text-7xl lg:text-8xl gold-text leading-none mb-6 glow-text fade-on-scroll visible">ВАШ САЙТ<br>ВАША ЦИФРОВАЯ ПОДПИСЬ</h1>
+      <p class="text-xl md:text-2xl text-[#E8C670] mb-12 fade-on-scroll visible">Премиальные индивидуальные сайты • Сайты под бизнес • Telegram-боты с воронками продаж</p>
+      <a href="#contact" class="inline-block px-12 py-5 btn-gold text-black text-lg font-semibold uppercase tracking-wider hover:scale-105 transition-all duration-300 fade-on-scroll visible">Начать проект</a>
     </div>
   </section>
 
   <section id="services" class="py-28 bg-black relative">
     <div class="max-w-7xl mx-auto px-6">
-      <h2 class="luxury-font text-4xl md:text-5xl gold-text text-center mb-6 section-title">Что мы создаём</h2>
+      <h2 class="luxury-font text-4xl md:text-5xl gold-text text-center mb-6 section-title fade-on-scroll">Что мы создаём</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="service-card p-6 border border-white/10 rounded-xl"><div class="text-4xl mb-4">🎨</div><h3 class="text-xl font-bold mb-2 gold-text">Индивидуальный сайт</h3><p class="text-gray-400 text-sm">Личный бренд, портфолио, премиум-визитка</p></div>
-        <div class="service-card p-6 border border-white/10 rounded-xl"><div class="text-4xl mb-4">💼</div><h3 class="text-xl font-bold mb-2 gold-text">Сайт под бизнес</h3><p class="text-gray-400 text-sm">Корпоративные сайты, интернет-магазины</p></div>
-        <div class="service-card p-6 border border-white/10 rounded-xl"><div class="text-4xl mb-4">🤖</div><h3 class="text-xl font-bold mb-2 gold-text">Telegram-боты</h3><p class="text-gray-400 text-sm">Воронки продаж, автоответчики, CRM</p></div>
-        <div class="service-card p-6 border border-white/10 rounded-xl"><div class="text-4xl mb-4">📱</div><h3 class="text-xl font-bold mb-2 gold-text">Мобильная версия</h3><p class="text-gray-400 text-sm">Адаптивный дизайн, PWA</p></div>
-        <div class="service-card p-6 border border-white/10 rounded-xl"><div class="text-4xl mb-4">🚀</div><h3 class="text-xl font-bold mb-2 gold-text">SEO продвижение</h3><p class="text-gray-400 text-sm">Оптимизация, рост позиций</p></div>
-        <div class="service-card p-6 border border-white/10 rounded-xl"><div class="text-4xl mb-4">📊</div><h3 class="text-xl font-bold mb-2 gold-text">CRM интеграция</h3><p class="text-gray-400 text-sm">AmoCRM, Битрикс24</p></div>
-        <div class="service-card p-6 border border-white/10 rounded-xl"><div class="text-4xl mb-4">🛡️</div><h3 class="text-xl font-bold mb-2 gold-text">Хостинг и SSL</h3><p class="text-gray-400 text-sm">Надёжный хостинг, защита</p></div>
-        <div class="service-card p-6 border border-white/10 rounded-xl"><div class="text-4xl mb-4">📈</div><h3 class="text-xl font-bold mb-2 gold-text">Аналитика</h3><p class="text-gray-400 text-sm">Метрики, цели, отчёты</p></div>
+        <div class="service-card p-6 border border-white/10 rounded-xl fade-on-scroll"><div class="text-4xl mb-4">🎨</div><h3 class="text-xl font-bold mb-2 gold-text">Индивидуальный сайт</h3><p class="text-gray-400 text-sm">Личный бренд, портфолио, премиум-визитка</p></div>
+        <div class="service-card p-6 border border-white/10 rounded-xl fade-on-scroll"><div class="text-4xl mb-4">💼</div><h3 class="text-xl font-bold mb-2 gold-text">Сайт под бизнес</h3><p class="text-gray-400 text-sm">Корпоративные сайты, интернет-магазины</p></div>
+        <div class="service-card p-6 border border-white/10 rounded-xl fade-on-scroll"><div class="text-4xl mb-4">🤖</div><h3 class="text-xl font-bold mb-2 gold-text">Telegram-боты</h3><p class="text-gray-400 text-sm">Воронки продаж, автоответчики, CRM</p></div>
+        <div class="service-card p-6 border border-white/10 rounded-xl fade-on-scroll"><div class="text-4xl mb-4">📱</div><h3 class="text-xl font-bold mb-2 gold-text">Мобильная версия</h3><p class="text-gray-400 text-sm">Адаптивный дизайн, PWA</p></div>
+        <div class="service-card p-6 border border-white/10 rounded-xl fade-on-scroll"><div class="text-4xl mb-4">🚀</div><h3 class="text-xl font-bold mb-2 gold-text">SEO продвижение</h3><p class="text-gray-400 text-sm">Оптимизация, рост позиций</p></div>
+        <div class="service-card p-6 border border-white/10 rounded-xl fade-on-scroll"><div class="text-4xl mb-4">📊</div><h3 class="text-xl font-bold mb-2 gold-text">CRM интеграция</h3><p class="text-gray-400 text-sm">AmoCRM, Битрикс24</p></div>
+        <div class="service-card p-6 border border-white/10 rounded-xl fade-on-scroll"><div class="text-4xl mb-4">🛡️</div><h3 class="text-xl font-bold mb-2 gold-text">Хостинг и SSL</h3><p class="text-gray-400 text-sm">Надёжный хостинг, защита</p></div>
+        <div class="service-card p-6 border border-white/10 rounded-xl fade-on-scroll"><div class="text-4xl mb-4">📈</div><h3 class="text-xl font-bold mb-2 gold-text">Аналитика</h3><p class="text-gray-400 text-sm">Метрики, цели, отчёты</p></div>
       </div>
     </div>
   </section>
 
   <section id="prices" class="py-28 bg-black/50">
     <div class="max-w-7xl mx-auto px-6">
-      <h2 class="luxury-font text-4xl md:text-5xl gold-text text-center mb-6 section-title">Стоимость</h2>
+      <h2 class="luxury-font text-4xl md:text-5xl gold-text text-center mb-6 section-title fade-on-scroll">Стоимость</h2>
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="p-8 border border-white/10 rounded-xl text-center">
+        <div class="p-8 border border-white/10 rounded-xl text-center price-card-hover fade-on-scroll">
           <h3 class="text-2xl font-bold gold-text">Старт</h3>
           <p class="text-4xl font-bold my-4">от 50 000 ₽</p>
           <ul class="text-gray-400 space-y-2 text-sm mb-6">
@@ -80,9 +135,9 @@
             <li>✅ Форма заявки</li>
             <li>✅ 1 месяц поддержки</li>
           </ul>
-          <a href="#contact" class="inline-block w-full py-3 border border-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition">Выбрать</a>
+          <a href="#contact" class="inline-block w-full py-3 border border-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all duration-300">Выбрать</a>
         </div>
-        <div class="p-8 border-2 border-[#D4AF37] rounded-xl text-center relative">
+        <div class="p-8 border-2 border-[#D4AF37] rounded-xl text-center relative price-card-hover fade-on-scroll">
           <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-[#D4AF37] text-black px-4 py-1 text-xs rounded-full">Популярный</div>
           <h3 class="text-2xl font-bold gold-text">Бизнес</h3>
           <p class="text-4xl font-bold my-4">от 150 000 ₽</p>
@@ -93,9 +148,9 @@
             <li>✅ SEO оптимизация</li>
             <li>✅ 3 месяца поддержки</li>
           </ul>
-          <a href="#contact" class="inline-block w-full py-3 btn-gold text-black font-semibold transition">Выбрать</a>
+          <a href="#contact" class="inline-block w-full py-3 btn-gold text-black font-semibold transition-all duration-300 hover:scale-105">Выбрать</a>
         </div>
-        <div class="p-8 border border-white/10 rounded-xl text-center">
+        <div class="p-8 border border-white/10 rounded-xl text-center price-card-hover fade-on-scroll">
           <h3 class="text-2xl font-bold gold-text">Премиум</h3>
           <p class="text-4xl font-bold my-4">от 350 000 ₽</p>
           <ul class="text-gray-400 space-y-2 text-sm mb-6">
@@ -105,7 +160,7 @@
             <li>✅ Комплексный маркетинг</li>
             <li>✅ 12 месяцев поддержки</li>
           </ul>
-          <a href="#contact" class="inline-block w-full py-3 border border-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition">Выбрать</a>
+          <a href="#contact" class="inline-block w-full py-3 border border-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all duration-300">Выбрать</a>
         </div>
       </div>
     </div>
@@ -113,14 +168,14 @@
 
   <section id="contact" class="py-28 bg-black">
     <div class="max-w-2xl mx-auto px-6 text-center">
-      <h2 class="luxury-font text-4xl md:text-5xl gold-text mb-6">Готовы начать?</h2>
+      <h2 class="luxury-font text-4xl md:text-5xl gold-text mb-6 fade-on-scroll">Готовы начать?</h2>
       <form id="contact-form" class="space-y-6">
-        <input type="text" id="name" placeholder="Ваше имя" required class="w-full bg-transparent border-b border-white/30 py-4 focus:border-[#D4AF37] outline-none">
-        <input type="text" id="contact" placeholder="Telegram / Email / Телефон" required class="w-full bg-transparent border-b border-white/30 py-4 focus:border-[#D4AF37] outline-none">
-        <textarea id="message" placeholder="Опишите ваш проект..." rows="5" required class="w-full bg-transparent border-b border-white/30 py-4 focus:border-[#D4AF37] outline-none resize-none"></textarea>
-        <button type="submit" class="w-full py-5 btn-gold text-black text-lg font-semibold uppercase tracking-wider">Отправить заявку</button>
+        <input type="text" id="name" placeholder="Ваше имя" required class="w-full bg-transparent border-b border-white/30 py-4 focus:border-[#D4AF37] outline-none transition-all duration-300">
+        <input type="text" id="contact" placeholder="Telegram / Email / Телефон" required class="w-full bg-transparent border-b border-white/30 py-4 focus:border-[#D4AF37] outline-none transition-all duration-300">
+        <textarea id="message" placeholder="Опишите ваш проект..." rows="5" required class="w-full bg-transparent border-b border-white/30 py-4 focus:border-[#D4AF37] outline-none resize-none transition-all duration-300"></textarea>
+        <button type="submit" class="w-full py-5 btn-gold text-black text-lg font-semibold uppercase tracking-wider hover:scale-105 transition-all duration-300">Отправить заявку</button>
       </form>
-      <p class="mt-8 text-gray-400">Или напишите: <a href="https://t.me/Doujons" class="text-[#D4AF37]">@Doujons</a></p>
+      <p class="mt-8 text-gray-400">Или напишите: <a href="https://t.me/Doujons" class="text-[#D4AF37] hover:opacity-80 transition">@Egeniy15</a></p>
     </div>
   </section>
 
@@ -173,7 +228,44 @@
     window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
   </script>
 
-  <!-- Отправка через Cloudflare Worker (КЛЮЧИ СПРЯТАНЫ) -->
+  <!-- Apple-анимация при скролле -->
+  <script>
+    // Плавное появление элементов
+    const fadeElements = document.querySelectorAll('.fade-on-scroll');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+    fadeElements.forEach(el => observer.observe(el));
+
+    // Navbar эффект при скролле
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('bg-black/90', 'backdrop-blur-xl');
+        nav.style.borderBottomColor = 'rgba(212, 175, 55, 0.3)';
+      } else {
+        nav.classList.remove('bg-black/90');
+        nav.style.borderBottomColor = 'rgba(255,255,255,0.1)';
+      }
+    });
+
+    // Плавный скролл по якорям
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+  <!-- Отправка через Cloudflare Worker -->
   <script>
     const WORKER_URL = "https://tg-bot-proxy.rete1985r.workers.dev";
 
@@ -199,7 +291,7 @@
           alert('✅ Заявка отправлена! Мы свяжемся с вами.');
           this.reset();
         } else {
-          alert('❌ Ошибка. Напишите @Egeniy15 в Telegram.');
+          alert('❌ Ошибка. Напишите @Doujons в Telegram.');
         }
       } catch (err) {
         alert('❌ Ошибка. Напишите @Doujons в Telegram.');
